@@ -56,7 +56,7 @@ namespace OneWayComposition
                 keyMO += (long)Math.Pow(8, (k - 8) * -1) * (4 * newElementFour[k]);
             }
 
-            return newMO = new MultiOperationsN2(newElementOne, newElementTwo, newElementFour, 0);
+            return newMO = new MultiOperationsN2(newElementOne, newElementTwo, newElementFour, keyMO);
         }
 
         public MultiOperationsN2 solvabilityFP(MultiOperationsN2 MO)
