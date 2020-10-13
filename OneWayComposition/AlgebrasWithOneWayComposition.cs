@@ -68,7 +68,7 @@ namespace OneWayComposition
 
         private void ConsiderationAllMO(int maxSizeAlgebra)
         {
-            StreamWriter sw = new StreamWriter(@"C:\Users\NiceLiker\source\repos\OneWayComposition\OneWayComposition\algebras.txt");
+            StreamWriter sw = new StreamWriter(@"C:\Users\NiceLiker\source\repos\OneWayComposition\OneWayComposition\algebras_composition_mu.txt");
             
             int[,] codeForInt = new int[,] { { 0, 0, 0 },
                                              { 1, 0, 0 },
@@ -84,7 +84,7 @@ namespace OneWayComposition
             MultiOperationsN2 newMO;
             long keyMO = 0;
 
-            for (int i1 = 6; i1 < 7; i1++)
+            for (int i1 = 7; i1 < 8; i1++)
             {
                 for (int i2 = 0; i2 < 8; i2++)
                 {
@@ -174,6 +174,7 @@ namespace OneWayComposition
             {
                 if (count == 2)
                 {
+                    /*
                     for (int i = 1; i < sizeCurrentAlgebra; i++)
                     {
                         if (sizeNewMultioperations + sizeCurrentAlgebra > maxSizeAlgebra)
@@ -194,7 +195,7 @@ namespace OneWayComposition
                             }
                         }
                     }
-
+                    */
                     if (sizeNewMultioperations + sizeCurrentAlgebra > maxSizeAlgebra)
                     {
 
@@ -280,6 +281,7 @@ namespace OneWayComposition
                         return sizeCurrentAlgebra = -1;
                     }
 
+                    /*
                     //пересечение
                     for (int i = 0; i < oldSizeAlgebra; i++)
                     {
@@ -358,7 +360,7 @@ namespace OneWayComposition
                     {
                         return sizeCurrentAlgebra = -1;
                     }
-
+                    */
                     //суперпозиция
 
                     for (int i = 0; i < mainKeysCurrentAlgebra.Length; i++)

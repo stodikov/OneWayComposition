@@ -10,8 +10,10 @@ namespace OneWayComposition
         static void Main(string[] args)
         {
             AlgebrasWithOneWayComposition OWC = new AlgebrasWithOneWayComposition();
+            AlgebrasWithFullComposition FC = new AlgebrasWithFullComposition();
 
-            OWC.Start();
+            //OWC.Start();
+            FC.Start();
         }
     }
 }

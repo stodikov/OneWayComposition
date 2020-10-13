@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlgebrasWithFullComposition.cs" />
     <Compile Include="AlgebrasWithOneWayComposition.cs" />
     <Compile Include="MetaOperationN2.cs" />
     <Compile Include="MultiOperationsN2.cs" />
