@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace OneWayComposition
+namespace OneWayComposition.Rang3.Dimension2
 {
-    class MetaOperationN2
+    class MetaOperations
     {
         private int[,] matrixForComposition = new int[,]  { { 0, 0, 0, 0, 0, 0, 0, 0 },
                                                             { 0, 1, 0, 1, 0, 1, 0, 1 },
@@ -16,9 +16,9 @@ namespace OneWayComposition
                                                             { 0, 0, 1, 1, 1, 1, 1, 1 },
                                                             { 0, 1, 1, 1, 1, 1, 1, 1 } };
 
-        public MultiOperationsN2 solvabilitySP(MultiOperationsN2 MO)
+        public MultiOperation solvabilityFP(MultiOperation MO)
         {
-            MultiOperationsN2 newMO;
+            MultiOperation newMO;
             int[] newElementOne = new int[9];
             int[] newElementTwo = new int[9];
             int[] newElementFour = new int[9];
@@ -49,19 +49,13 @@ namespace OneWayComposition
                 newElementFour[i + 6] = elementFour[i + 6];
             }
 
-            for (int k = 0; k < 9; k++)
-            {
-                keyMO += (long)Math.Pow(8, (k - 8) * -1) * newElementOne[k];
-                keyMO += (long)Math.Pow(8, (k - 8) * -1) * (2 * newElementTwo[k]);
-                keyMO += (long)Math.Pow(8, (k - 8) * -1) * (4 * newElementFour[k]);
-            }
-
-            return newMO = new MultiOperationsN2(newElementOne, newElementTwo, newElementFour, keyMO);
+            return newMO = new MultiOperation(newElementOne, newElementTwo, newElementFour, getKeyMO(
+                newElementOne, newElementTwo, newElementFour));
         }
 
-        public MultiOperationsN2 solvabilityFP(MultiOperationsN2 MO)
+        public MultiOperation solvabilitySP(MultiOperation MO)
         {
-            MultiOperationsN2 newMO;
+            MultiOperation newMO;
             int[] newElementOne = new int[9];
             int[] newElementTwo = new int[9];
             int[] newElementFour = new int[9];
@@ -92,23 +86,16 @@ namespace OneWayComposition
                 newElementFour[(i * 3) + 2] = elementFour[(i * 3) + 2];
             }
 
-            for (int k = 0; k < 9; k++)
-            {
-                keyMO += (long)Math.Pow(8, (k - 8) * -1) * newElementOne[k];
-                keyMO += (long)Math.Pow(8, (k - 8) * -1) * (2 * newElementTwo[k]);
-                keyMO += (long)Math.Pow(8, (k - 8) * -1) * (4 * newElementFour[k]);
-            }
-
-            return newMO = new MultiOperationsN2(newElementOne, newElementTwo, newElementFour, keyMO);
+            return newMO = new MultiOperation(newElementOne, newElementTwo, newElementFour, getKeyMO(
+                newElementOne, newElementTwo, newElementFour));
         }
 
-        public MultiOperationsN2 intersection(MultiOperationsN2 MO_0, MultiOperationsN2 MO_1)
+        public MultiOperation intersection(MultiOperation MO_0, MultiOperation MO_1)
         {
-            MultiOperationsN2 newMO;
+            MultiOperation newMO;
             int[] newElementOne = new int[9];
             int[] newElementTwo = new int[9];
             int[] newElementFour = new int[9];
-            long keyMO = 0;
 
             int[] elementOne_0 = MO_0.elementOne;
             int[] elementTwo_0 = MO_0.elementTwo;
@@ -125,23 +112,16 @@ namespace OneWayComposition
                 if (elementFour_0[i] == elementFour_1[i] && elementFour_0[i] == 1) { newElementFour[i] = 1; }
             }
 
-            for (int k = 0; k < 9; k++)
-            {
-                keyMO += (long)Math.Pow(8, (k - 8) * -1) * newElementOne[k];
-                keyMO += (long)Math.Pow(8, (k - 8) * -1) * (2 * newElementTwo[k]);
-                keyMO += (long)Math.Pow(8, (k - 8) * -1) * (4 * newElementFour[k]);
-            }
-
-            return newMO = new MultiOperationsN2(newElementOne, newElementTwo, newElementFour, keyMO);
+            return newMO = new MultiOperation(newElementOne, newElementTwo, newElementFour, getKeyMO(
+                newElementOne, newElementTwo, newElementFour));
         }
 
-        public MultiOperationsN2 composition(MultiOperationsN2 MO_0, MultiOperationsN2 MO_1, MultiOperationsN2 MO_2)
+        public MultiOperation composition(MultiOperation MO_0, MultiOperation MO_1, MultiOperation MO_2)
         {
-            MultiOperationsN2 newMO;
+            MultiOperation newMO;
             int[] newElementOne = new int[9];
             int[] newElementTwo = new int[9];
             int[] newElementFour = new int[9];
-            long keyMO = 0;
 
             int[] elementOne_0 = MO_0.elementOne;
             int[] elementTwo_0 = MO_0.elementTwo;
@@ -206,14 +186,20 @@ namespace OneWayComposition
                 newElementFour[j] = matrixForComposition[temp_res_composition[2], m_1[j]];
             }
 
+            return newMO = new MultiOperation(newElementOne, newElementTwo, newElementFour, getKeyMO(
+                newElementOne, newElementTwo, newElementFour));
+        }
+
+        public long getKeyMO(int[] elementOne, int[] elementTwo, int[] elementFour)
+        {
+            long keyMO = 0;
             for (int k = 0; k < 9; k++)
             {
-                keyMO += (long)Math.Pow(8, (k - 8) * -1) * newElementOne[k];
-                keyMO += (long)Math.Pow(8, (k - 8) * -1) * (2 * newElementTwo[k]);
-                keyMO += (long)Math.Pow(8, (k - 8) * -1) * (4 * newElementFour[k]);
+                keyMO += (long)Math.Pow(8, (k - 8) * -1) * elementOne[k];
+                keyMO += (long)Math.Pow(8, (k - 8) * -1) * (2 * elementTwo[k]);
+                keyMO += (long)Math.Pow(8, (k - 8) * -1) * (4 * elementFour[k]);
             }
-
-            return newMO = new MultiOperationsN2(newElementOne, newElementTwo, newElementFour, keyMO);
+            return keyMO;
         }
     }
 }

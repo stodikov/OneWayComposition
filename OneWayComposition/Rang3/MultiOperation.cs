@@ -5,14 +5,14 @@ using System.Text;
 
 namespace OneWayComposition
 {
-    class MultiOperationsN2
+    class MultiOperation
     {
-        public int[] elementOne { get; set; }
-        public int[] elementTwo { get; set; }
-        public int[] elementFour { get; set; }
-        public long keyMO { get; set; }
+        public int[] elementOne { get; }
+        public int[] elementTwo { get; }
+        public int[] elementFour { get; }
+        public long keyMO { get; }
 
-        public MultiOperationsN2(int[] elementOne, int[] elementTwo, int[] elementFour, long keyMO)
+        public MultiOperationR3(int[] elementOne, int[] elementTwo, int[] elementFour, long keyMO)
         {
             this.elementOne = elementOne;
             this.elementTwo = elementTwo;

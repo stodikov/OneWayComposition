@@ -41,12 +41,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlgebrasWithFullComposition.cs" />
-    <Compile Include="AlgebrasWithOneWayComposition.cs" />
-    <Compile Include="MetaOperationN2.cs" />
-    <Compile Include="MultiOperationsN2.cs" />
+    <Compile Include="Rang2\Dimension1\AlgebrasWithFullComposition.cs" />
+    <Compile Include="Rang2\Dimension1\AlgebrasWithOneWayComposition.cs" />
+    <Compile Include="Rang2\Dimension1\BaseAlgebra.cs" />
+    <Compile Include="Rang2\Dimension1\Bases.cs" />
+    <Compile Include="Rang2\Dimension1\MetaOperations.cs" />
+    <Compile Include="Rang3\Dimension1\AlgebrasWithFullComposition.cs" />
+    <Compile Include="Rang3\Dimension1\AlgebrasWithOneWayComposition.cs" />
+    <Compile Include="Rang3\Dimension1\BaseAlgebra.cs" />
+    <Compile Include="Rang3\Dimension1\Bases.cs" />
+    <Compile Include="Rang3\Dimension1\MetaOperations.cs" />
+    <Compile Include="Rang2\Dimension2\AlgebrasWithFullComposition.cs" />
+    <Compile Include="Rang2\Dimension2\BaseAlgebra.cs" />
+    <Compile Include="Rang2\Dimension2\Bases.cs" />
+    <Compile Include="Rang3\Dimension2\AlgebrasWithFullComposition.cs" />
+    <Compile Include="Rang3\Dimension2\AlgebrasWithOneWayComposition.cs" />
+    <Compile Include="Rang2\Dimension2\AlgebrasWithOneWayComposition.cs" />
+    <Compile Include="Rang2\Dimension2\MetaOperations.cs" />
+    <Compile Include="Rang3\Dimension2\BaseAlgebra.cs" />
+    <Compile Include="Rang3\Dimension2\Bases.cs" />
+    <Compile Include="Rang3\Dimension2\MetaOperations.cs" />
+    <Compile Include="Rang2\MultiOperation.cs" />
+    <Compile Include="Rang3\MultiOperation.cs" />
+    <Compile Include="Rang2\Dimension3\AlgebrasWithFullComposition.cs" />
+    <Compile Include="Rang2\Dimension3\AlgebrasWithOneWayComposition.cs" />
+    <Compile Include="Rang2\Dimension3\BaseAlgebra.cs" />
+    <Compile Include="Rang2\Dimension3\Bases.cs" />
+    <Compile Include="Rang2\Dimension3\MetaOperations.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
