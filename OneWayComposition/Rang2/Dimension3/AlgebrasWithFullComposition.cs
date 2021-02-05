@@ -17,6 +17,7 @@ namespace OneWayComposition.Rang2.Dimension3
         MetaOperations meta = new MetaOperations();
 
         int[] multioperation;
+        bool details = false;
 
         public void Start()
         {
@@ -27,14 +28,23 @@ namespace OneWayComposition.Rang2.Dimension3
 
         private void ConsiderationOneBasis(int maxSizeAlgebra)
         {
-            int[][] basis = new Bases().getBasisTernaryMO(new int[] { 0, 1, 0, 1, 0, 1, 0, 1 });
+            int[][] basis = new Bases().getBasesTernaryMO(
+                new int[][]
+                {
+                    new int[] { 1, 2, 2, 1, 2, 1, 1, 2 },
+                }
+                );
             int sizeCurrentAlgebra = getAlgebra(basis, maxSizeAlgebra);
 
-            multioperation = parseVectorsMOtoArrayInt(new MultiOperation(
-                basis[0], basis[1], 0));
-            foreach (int w in multioperation) Console.Write(w);
-            Console.Write(' ');
-            Console.Write($" {sizeCurrentAlgebra}");
+            for (int i = 0; i < basis.Length; i += 2)
+            {
+                multioperation = parseVectorsMOtoArrayInt(new MultiOperation(
+                    basis[i], basis[i + 1], 0));
+                foreach (int w in multioperation) Console.Write(w);
+                Console.Write(' ');
+            }
+            Console.WriteLine();
+            Console.Write($"Размер алгебры: {sizeCurrentAlgebra}");
             Console.WriteLine();
         }
 
@@ -159,7 +169,7 @@ namespace OneWayComposition.Rang2.Dimension3
 
             MultiOperation newMO;
             int sizeCurrentAlgebra = 0;
-            int oldSizeAlgebra = 16, sizeNewMultioperations = 0;
+            int oldSizeAlgebra = 0, sizeNewMultioperations = 0;
             bool flag = true;
 
             sizeCurrentAlgebra = prepareForConstruct(basis, sizeCurrentAlgebra);
@@ -251,7 +261,7 @@ namespace OneWayComposition.Rang2.Dimension3
                 newMO = meta.solvabilityFP(currentAlgebra[keysCurrentAlgebra[i]]);
                 if (!currentAlgebra.ContainsKey(newMO.keyMO) && !newMultiOperations.ContainsKey(newMO.keyMO))
                 {
-                    if (true)
+                    if (details)
                     {
                         Console.Write("mu FP: ");
                         multioperation = parseVectorsMOtoArrayInt(currentAlgebra[keysCurrentAlgebra[i]]);
@@ -280,7 +290,7 @@ namespace OneWayComposition.Rang2.Dimension3
                 newMO = meta.solvabilitySP(currentAlgebra[keysCurrentAlgebra[i]]);
                 if (!currentAlgebra.ContainsKey(newMO.keyMO) && !newMultiOperations.ContainsKey(newMO.keyMO))
                 {
-                    if (true)
+                    if (details)
                     {
                         Console.Write("mu SP: ");
                         multioperation = parseVectorsMOtoArrayInt(currentAlgebra[keysCurrentAlgebra[i]]);
@@ -309,7 +319,7 @@ namespace OneWayComposition.Rang2.Dimension3
                 newMO = meta.solvabilityTP(currentAlgebra[keysCurrentAlgebra[i]]);
                 if (!currentAlgebra.ContainsKey(newMO.keyMO) && !newMultiOperations.ContainsKey(newMO.keyMO))
                 {
-                    if (true)
+                    if (details)
                     {
                         Console.Write("mu TP: ");
                         multioperation = parseVectorsMOtoArrayInt(currentAlgebra[keysCurrentAlgebra[i]]);
@@ -349,7 +359,7 @@ namespace OneWayComposition.Rang2.Dimension3
                                 currentAlgebra[keysCurrentAlgebra[k]], currentAlgebra[keysCurrentAlgebra[m]]);
                             if (!currentAlgebra.ContainsKey(newMO.keyMO) && !newMultiOperations.ContainsKey(newMO.keyMO))
                             {
-                                if (true)
+                                if (details)
                                 {
                                     Console.Write("cp: (");
                                     multioperation = parseVectorsMOtoArrayInt(currentAlgebra[keysCurrentAlgebra[i]]);
@@ -397,7 +407,6 @@ namespace OneWayComposition.Rang2.Dimension3
                 sizeCurrentAlgebra = checkAndAddElement(newMO, sizeCurrentAlgebra);
             }
 
-            //sizeCurrentAlgebra = checkAndAddElement(MO, sizeCurrentAlgebra);
             return sizeCurrentAlgebra;
         }
 

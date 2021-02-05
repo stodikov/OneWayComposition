@@ -18,24 +18,34 @@ namespace OneWayComposition.Rang2.Dimension1
         MetaOperations meta = new MetaOperations();
 
         int[] multioperation;
-        bool details = true;
+        bool details = false;
 
         public void Start()
         {
             int maxSizeAlgebra = 16;
-            ConsiderationOneBasis(maxSizeAlgebra);
-            //ConsiderationBasis(maxSizeAlgebra);
+            //ConsiderationOneBasis(maxSizeAlgebra);
+            ConsiderationBasis(maxSizeAlgebra);
         }
 
         private void ConsiderationOneBasis(int maxSizeAlgebra)
         {
-            int[][] basis = new Bases().getBasisUnaryMO(new int[] { 0, 1 });
+            int[][] basis = new Bases().getBasesUnaryMO(
+                new int[][]
+                {
+                    new int[] { 0, 1 }
+                }
+                );
             int sizeCurrentAlgebra = getAlgebra(basis, maxSizeAlgebra);
-            
-            multioperation = parseVectorsMOtoArrayInt(new MultiOperation(
-                basis[0], basis[1], 0));
-            foreach (int w in multioperation) Console.Write(w);
-            Console.Write($" {sizeCurrentAlgebra}");
+
+            for (int i = 0; i < basis.Length; i += 2)
+            {
+                multioperation = parseVectorsMOtoArrayInt(new MultiOperation(
+                    basis[i], basis[i + 1], 0));
+                foreach (int w in multioperation) Console.Write(w);
+                Console.Write(' ');
+            }
+            Console.WriteLine();
+            Console.Write($"Размер алгебры: {sizeCurrentAlgebra}");
             Console.WriteLine();
         }
 
@@ -113,7 +123,7 @@ namespace OneWayComposition.Rang2.Dimension1
             currentAlgebra = new Dictionary<long, MultiOperation>(maxSizeAlgebra);
             newMultiOperations = new Dictionary<long, MultiOperation>(maxSizeAlgebra);
             keysCurrentAlgebra = new long[maxSizeAlgebra];
-            mainKeysCurrentAlgebra = new long[basis.Length];
+            mainKeysCurrentAlgebra = new long[basis.Length + (baseAlgebra.Count * 2)];
 
             MultiOperation newMO;
             int sizeCurrentAlgebra = 0;
@@ -136,6 +146,7 @@ namespace OneWayComposition.Rang2.Dimension1
 
                     //суперпозиция
                     sizeNewMultioperations += getComposition(
+                        0, sizeMKCA,
                         0, sizeCurrentAlgebra
                         );
                 }
@@ -162,6 +173,7 @@ namespace OneWayComposition.Rang2.Dimension1
 
                     //суперпозиция
                     sizeNewMultioperations += getComposition(
+                        0, sizeMKCA,
                         oldSizeAlgebra, sizeCurrentAlgebra
                         );
                 }
@@ -257,13 +269,14 @@ namespace OneWayComposition.Rang2.Dimension1
         }
 
         private int getComposition(
+            int firstCycleStart, int firstCycleFinish,
             int secondCycleStart, int secondCycleFinish
             )
         {
             MultiOperation newMO;
             int sizeNewMultioperations = 0;
 
-            for (int i = 0; i < mainKeysCurrentAlgebra.Length; i++)
+            for (int i = firstCycleStart; i < firstCycleFinish; i++)
             {
                 for (int j = secondCycleStart; j < secondCycleFinish; j++)
                 {

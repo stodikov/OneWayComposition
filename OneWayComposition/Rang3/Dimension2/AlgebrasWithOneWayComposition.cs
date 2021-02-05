@@ -23,8 +23,9 @@ namespace OneWayComposition.Rang3.Dimension2
         public void Start()
         {
             int maxSizeAlgebra = 100;
-            //ConsiderationOneBasis(maxSizeAlgebra);
-            ConsiderationBasis(maxSizeAlgebra);
+            ConsiderationOneBasis(maxSizeAlgebra);
+            //ConsiderationBasis(maxSizeAlgebra);
+            //ConsiderationPartAlgebras(maxSizeAlgebra);
         }
 
         private void ConsiderationBasis(int maxSizeAlgebra)
@@ -60,22 +61,75 @@ namespace OneWayComposition.Rang3.Dimension2
 
         private void ConsiderationOneBasis(int maxSizeAlgebra)
         {
-            int[][] basis = new Bases().getBasisBinaryMO(new int[] { 0, 0, 1, 0, 0, 1, 0, 0, 1 });
+            int[][] basis = new Bases().getBasesBinaryMO(
+                new int[][]
+                {
+                    new int[] { 1, 3, 5, 3, 2, 0, 5, 0, 4 }
+                }
+                );
             int sizeCurrentAlgebra = getAlgebra(basis, maxSizeAlgebra);
 
-            if (sizeCurrentAlgebra == -1)
-            {
-                Console.Clear();
-                Console.WriteLine("Выход за установленный размер алгебр");
-            }
-            else
+            for (int i = 0; i < basis.Length; i += 3)
             {
                 multioperation = parseVectorsMOtoArrayInt(new MultiOperation(
-                    basis[0], basis[1], basis[2], 0));
+                    basis[i], basis[i + 1], basis[i + 2], 0));
                 foreach (int w in multioperation) Console.Write(w);
-                Console.Write($" {sizeCurrentAlgebra}");
-                Console.WriteLine();
+                Console.Write(' ');
             }
+            Console.WriteLine();
+            Console.Write($"Размер алгебры: {sizeCurrentAlgebra}");
+            Console.WriteLine();
+        }
+
+        private void ConsiderationPartAlgebras(int maxSizeAlgebra)
+        {
+            StreamReader sr = new StreamReader(@"C:\Users\NiceLiker\source\repos\OneWayComposition\OneWayComposition\Rang3\Dimension2\algebras_1.txt");
+            StreamWriter sw = new StreamWriter(@"C:\Users\NiceLiker\source\repos\OneWayComposition\OneWayComposition\Rang3\Dimension2\algebras_1_with_e.txt");
+
+            multioperation = new int[9];
+            int sizeOneWayAlgebra = 0, sizeCurrentAlgebra = 0;
+
+            string line = "";
+
+            while ((line = sr.ReadLine()) != null)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    if (i < 9)
+                    {
+                        multioperation[i] = (int)(line[i] - '0');
+                    }
+                    else
+                    {
+                        sizeOneWayAlgebra = Convert.ToInt32(line.Substring(i + 1, line.Length - (i + 1)));
+                    }
+                }
+
+                int[][] basis = new Bases().getBasisBinaryMO(multioperation);
+                sizeCurrentAlgebra = getAlgebra(basis, maxSizeAlgebra);
+
+                if (sizeCurrentAlgebra != -1)
+                {
+                    multioperation = parseVectorsMOtoArrayInt(new MultiOperation(
+                    basis[0], basis[1], basis[2], 0));
+                    foreach (int w in multioperation)
+                    {
+                        Console.Write(w);
+                        sw.Write(w);
+                    }
+
+                    Console.Write($" {sizeCurrentAlgebra}");
+                    Console.WriteLine();
+
+                    sw.Write($" {sizeCurrentAlgebra}");
+                    sw.WriteLine();
+                }
+
+                sizeCurrentAlgebra = 0;
+            }
+
+            sr.Close();
+            sw.Close();
         }
 
         private MultiOperation parseMOtoVectors(int[] MO)

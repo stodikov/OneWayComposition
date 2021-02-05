@@ -10,11 +10,11 @@ namespace OneWayComposition.Rang3.Dimension2
         public int[][] getBasisBinaryMO(int[] elements)
         {
             int[][] basis = new int[3][];
-            int[] elementOne = new int[3];
-            int[] elementTwo = new int[3];
-            int[] elementFour = new int[3];
+            int[] elementOne = new int[9];
+            int[] elementTwo = new int[9];
+            int[] elementFour = new int[9];
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 9; i++)
             {
                 if (elements[i] == 1 || elements[i] == 3 || elements[i] == 5 || elements[i] == 7)
                 {
@@ -33,6 +33,24 @@ namespace OneWayComposition.Rang3.Dimension2
             basis[0] = elementOne;
             basis[1] = elementTwo;
             basis[2] = elementFour;
+
+            return basis;
+        }
+
+        public int[][] getBasesBinaryMO(int[][] multioperations)
+        {
+            int[][] basis = new int[multioperations.Length * 3][];
+            int[][] basisMO;
+            int index = 0;
+
+            foreach (int[] multioperation in multioperations)
+            {
+                basisMO = getBasisBinaryMO(multioperation);
+                basis[index] = basisMO[0];
+                basis[index + 1] = basisMO[1];
+                basis[index + 2] = basisMO[2];
+                index += 2;
+            }
 
             return basis;
         }

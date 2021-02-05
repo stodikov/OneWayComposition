@@ -31,6 +31,23 @@ namespace OneWayComposition
             return basis;
         }
 
+        public int[][] getBasesTernaryMO(int[][] multioperations)
+        {
+            int[][] basis = new int[multioperations.Length * 2][];
+            int[][] basisMO;
+            int index = 0;
+
+            foreach (int[] multioperation in multioperations)
+            {
+                basisMO = getBasisTernaryMO(multioperation);
+                basis[index] = basisMO[0];
+                basis[index + 1] = basisMO[1];
+                index += 2;
+            }
+
+            return basis;
+        }
+
         public int[][][] getBasesAllTernaryMO()
         {
             int[][][] bases = new int[65536][][];

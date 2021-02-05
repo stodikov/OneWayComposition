@@ -28,22 +28,24 @@ namespace OneWayComposition.Rang3.Dimension1
 
         private void ConsiderationOneBasis(int maxSizeAlgebra)
         {
-            int[][] basis = new Bases().getBasisUnaryMO(new int[] { 5, 2, 1 });
+            int[][] basis = new Bases().getBasesUnaryMO(
+                new int[][]
+                {
+                    new int[] { 2, 3, 2 },
+                }
+                );
             int sizeCurrentAlgebra = getAlgebra(basis, maxSizeAlgebra);
 
-            if (sizeCurrentAlgebra == -1)
-            {
-                Console.Clear();
-                Console.WriteLine("Выход за установленный размер алгебр");
-            }
-            else
+            for (int i = 0; i < basis.Length; i += 3)
             {
                 multioperation = parseVectorsMOtoArrayInt(new MultiOperation(
-                    basis[0], basis[1], basis[2], 0));
+                    basis[i], basis[i + 1], basis[i + 2], 0));
                 foreach (int w in multioperation) Console.Write(w);
-                Console.Write($" {sizeCurrentAlgebra}");
-                Console.WriteLine();
+                Console.Write(' ');
             }
+            Console.WriteLine();
+            Console.Write($"Размер алгебры: {sizeCurrentAlgebra}");
+            Console.WriteLine();
         }
 
         private void ConsiderationPartAlgebras(int maxSizeAlgebra)
@@ -53,6 +55,7 @@ namespace OneWayComposition.Rang3.Dimension1
             
             MultiOperation minMO = new MultiOperation(new int[3], new int[3], new int[3], 0);
 
+            multioperation = new int[3];
             int sizeOneWayAlgebra = 0, countMO = 0, sizeCurrentAlgebra = 0;
             double totalPercent = 0, currentPercent = 0,
                 averagePercent = 0, minPercent = 101;

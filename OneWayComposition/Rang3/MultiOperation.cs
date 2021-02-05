@@ -12,7 +12,7 @@ namespace OneWayComposition
         public int[] elementFour { get; }
         public long keyMO { get; }
 
-        public MultiOperationR3(int[] elementOne, int[] elementTwo, int[] elementFour, long keyMO)
+        public MultiOperation(int[] elementOne, int[] elementTwo, int[] elementFour, long keyMO)
         {
             this.elementOne = elementOne;
             this.elementTwo = elementTwo;

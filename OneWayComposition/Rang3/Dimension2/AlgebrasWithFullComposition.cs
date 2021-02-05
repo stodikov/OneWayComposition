@@ -23,37 +23,40 @@ namespace OneWayComposition.Rang3.Dimension2
         public void Start()
         {
             int maxSizeAlgebra = 100;
-            //ConsiderationOneBasis(maxSizeAlgebra);
-            ConsiderationPartAlgebras(maxSizeAlgebra);
+            ConsiderationOneBasis(maxSizeAlgebra);
+            //ConsiderationPartAlgebras(maxSizeAlgebra);
         }
 
         private void ConsiderationOneBasis(int maxSizeAlgebra)
         {
-            int[][] basis = new Bases().getBasisBinaryMO(new int[] { 5, 2, 1, 5, 2, 1, 5, 2, 1 });
+            int[][] basis = new Bases().getBasesBinaryMO(
+                new int[][]
+                {
+                    new int[] { 1, 3, 5, 3, 2, 0, 5, 0, 4 }
+                }
+                );
             int sizeCurrentAlgebra = getAlgebra(basis, maxSizeAlgebra);
 
-            if (sizeCurrentAlgebra == -1)
-            {
-                Console.Clear();
-                Console.WriteLine("Выход за установленный размер алгебр");
-            }
-            else
+            for (int i = 0; i < basis.Length; i += 3)
             {
                 multioperation = parseVectorsMOtoArrayInt(new MultiOperation(
-                    basis[0], basis[1], basis[2], 0));
+                    basis[i], basis[i + 1], basis[i + 2], 0));
                 foreach (int w in multioperation) Console.Write(w);
-                Console.Write($" {sizeCurrentAlgebra}");
-                Console.WriteLine();
+                Console.Write(' ');
             }
+            Console.WriteLine();
+            Console.Write($"Размер алгебры: {sizeCurrentAlgebra}");
+            Console.WriteLine();
         }
 
         private void ConsiderationPartAlgebras(int maxSizeAlgebra)
         {
-            StreamReader sr = new StreamReader(@"C:\Users\NiceLiker\source\repos\OneWayComposition\OneWayComposition\Rang3\Dimension2\n1r3_with_e.txt");
-            StreamWriter sw = new StreamWriter(@"C:\Users\NiceLiker\source\repos\OneWayComposition\OneWayComposition\Rang3\Dimension2\fulln1r3_with_e.txt");
+            StreamReader sr = new StreamReader(@"C:\Users\NiceLiker\source\repos\OneWayComposition\OneWayComposition\Rang3\Dimension2\algebras_1_with_e.txt");
+            StreamWriter sw = new StreamWriter(@"C:\Users\NiceLiker\source\repos\OneWayComposition\OneWayComposition\Rang3\Dimension2\fullalgebras_1_with_e.txt");
 
             MultiOperation minMO = new MultiOperation(new int[3], new int[3], new int[3], 0);
 
+            multioperation = new int[9];
             int sizeOneWayAlgebra = 0, countMO = 0, sizeCurrentAlgebra = 0;
             double totalPercent = 0, currentPercent = 0,
                 averagePercent = 0, minPercent = 101;
@@ -81,7 +84,12 @@ namespace OneWayComposition.Rang3.Dimension2
 
                 multioperation = parseVectorsMOtoArrayInt(new MultiOperation(
                     basis[0], basis[1], basis[2], 0));
-                foreach (int w in multioperation) sw.Write(w);
+                foreach (int w in multioperation)
+                {
+                    Console.Write(w);
+                    sw.Write(w);
+                }
+                Console.WriteLine();
 
                 sw.Write($" | {sizeCurrentAlgebra} | {currentPercent}%");
                 sw.WriteLine();

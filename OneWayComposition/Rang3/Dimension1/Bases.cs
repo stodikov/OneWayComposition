@@ -37,6 +37,24 @@ namespace OneWayComposition.Rang3.Dimension1
             return basis;
         }
 
+        public int[][] getBasesUnaryMO(int[][] multioperations)
+        {
+            int[][] basis = new int[multioperations.Length * 3][];
+            int[][] basisMO;
+            int index = 0;
+
+            foreach (int[] multioperation in multioperations)
+            {
+                basisMO = getBasisUnaryMO(multioperation);
+                basis[index] = basisMO[0];
+                basis[index + 1] = basisMO[1];
+                basis[index + 2] = basisMO[2];
+                index += 2;
+            }
+
+            return basis;
+        }
+
         public int[][][] getBasesAllUnaryMO()
         {
             int[][][] bases = new int[512][][];

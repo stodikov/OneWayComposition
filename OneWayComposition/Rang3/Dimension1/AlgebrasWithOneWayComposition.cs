@@ -18,7 +18,7 @@ namespace OneWayComposition.Rang3.Dimension1
         MetaOperations meta = new MetaOperations();
         
         int[] multioperation;
-        bool details = true;
+        bool details = false;
 
         public void Start()
         {
@@ -60,23 +60,24 @@ namespace OneWayComposition.Rang3.Dimension1
 
         private void ConsiderationOneBasis(int maxSizeAlgebra)
         {
-            int[][] basis = new Bases().getBasisUnaryMO(new int[] { 0, 0, 1 });
+            int[][] basis = new Bases().getBasesUnaryMO(
+                new int[][]
+                {
+                    new int[] { 2, 3, 2 },
+                }
+                );
             int sizeCurrentAlgebra = getAlgebra(basis, maxSizeAlgebra);
 
-            if (sizeCurrentAlgebra == -1)
-            {
-                Console.Clear();
-                Console.WriteLine("Выход за установленный размер алгебр");
-            }
-            else
+            for (int i = 0; i < basis.Length; i += 3)
             {
                 multioperation = parseVectorsMOtoArrayInt(new MultiOperation(
-                    basis[0], basis[1], basis[2], 0));
+                    basis[i], basis[i + 1], basis[i + 2], 0));
                 foreach (int w in multioperation) Console.Write(w);
                 Console.Write(' ');
-                Console.Write($" {sizeCurrentAlgebra}");
-                Console.WriteLine();
             }
+            Console.WriteLine();
+            Console.Write($"Размер алгебры: {sizeCurrentAlgebra}");
+            Console.WriteLine();
         }
 
         private MultiOperation parseMOtoVectors(int[] MO)

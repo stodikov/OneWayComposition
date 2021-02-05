@@ -22,7 +22,6 @@ namespace OneWayComposition.Rang3.Dimension2
             int[] newElementOne = new int[9];
             int[] newElementTwo = new int[9];
             int[] newElementFour = new int[9];
-            long keyMO = 0;
 
             int[] elementOne = MO.elementOne;
             int[] elementTwo = MO.elementTwo;
@@ -59,7 +58,6 @@ namespace OneWayComposition.Rang3.Dimension2
             int[] newElementOne = new int[9];
             int[] newElementTwo = new int[9];
             int[] newElementFour = new int[9];
-            long keyMO = 0;
 
             int[] elementOne = MO.elementOne;
             int[] elementTwo = MO.elementTwo;

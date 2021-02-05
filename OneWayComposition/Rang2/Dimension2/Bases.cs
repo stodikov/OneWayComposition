@@ -7,7 +7,8 @@ namespace OneWayComposition.Rang2.Dimension2
 {
     class Bases
     {
-        public int[][] getBasisBinaryMO(int[] elements)
+        
+        public int[][] getBasisBinaryMO(int[] multioperation)
         {
             int[][] basis = new int[2][];
             int[] elementOne = new int[4];
@@ -15,11 +16,11 @@ namespace OneWayComposition.Rang2.Dimension2
 
             for (int i = 0; i < 4; i++)
             {
-                if (elements[i] == 1 || elements[i] == 3)
+                if (multioperation[i] == 1 || multioperation[i] == 3)
                 {
                     elementOne[i] = 1;
                 }
-                if (elements[i] == 2 || elements[i] == 3)
+                if (multioperation[i] == 2 || multioperation[i] == 3)
                 {
                     elementTwo[i] = 1;
                 }
@@ -27,6 +28,23 @@ namespace OneWayComposition.Rang2.Dimension2
 
             basis[0] = elementOne;
             basis[1] = elementTwo;
+
+            return basis;
+        }
+
+        public int[][] getBasesBinaryMO(int[][] multioperations)
+        {
+            int[][] basis = new int[multioperations.Length * 2][];
+            int[][] basisMO;
+            int index = 0;
+
+            foreach (int[] multioperation in multioperations)
+            {
+                basisMO = getBasisBinaryMO(multioperation);
+                basis[index] = basisMO[0];
+                basis[index + 1] = basisMO[1];
+                index += 2;
+            }
 
             return basis;
         }

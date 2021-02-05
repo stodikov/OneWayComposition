@@ -17,24 +17,34 @@ namespace OneWayComposition.Rang2.Dimension1
         MetaOperations meta = new MetaOperations();
 
         int[] multioperation;
-        bool details = true;
+        bool details = false;
 
         public void Start()
         {
             int maxSizeAlgebra = 16;
-            ConsiderationOneBasis(maxSizeAlgebra);
-            //ConsiderationPartAlgebras(maxSizeAlgebra);
+            //ConsiderationOneBasis(maxSizeAlgebra);
+            ConsiderationPartAlgebras(maxSizeAlgebra);
         }
 
         private void ConsiderationOneBasis(int maxSizeAlgebra)
         {
-            int[][] basis = new Bases().getBasisUnaryMO(new int[] { 0, 1 });
+            int[][] basis = new Bases().getBasesUnaryMO(
+                new int[][]
+                {
+                    new int[] { 2, 3 },
+                }
+                );
             int sizeCurrentAlgebra = getAlgebra(basis, maxSizeAlgebra);
 
-            multioperation = parseVectorsMOtoArrayInt(new MultiOperation(
-                basis[0], basis[1], 0));
-            foreach (int w in multioperation) Console.Write(w);
-            Console.Write($" {sizeCurrentAlgebra}");
+            for (int i = 0; i < basis.Length; i += 2)
+            {
+                multioperation = parseVectorsMOtoArrayInt(new MultiOperation(
+                    basis[i], basis[i + 1], 0));
+                foreach (int w in multioperation) Console.Write(w);
+                Console.Write(' ');
+            }
+            Console.WriteLine();
+            Console.Write($"Размер алгебры: {sizeCurrentAlgebra}");
             Console.WriteLine();
         }
 
