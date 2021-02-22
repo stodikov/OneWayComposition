@@ -3,43 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace OneWayComposition.Rang3.Dimension2
+namespace OneWayComposition.Rang4.Dimension2
 {
     class Bases
     {
         public int[][] getBasisBinaryMO(int[] elements)
         {
-            int[][] basis = new int[3][];
-            int[] elementOne = new int[9];
-            int[] elementTwo = new int[9];
-            int[] elementFour = new int[9];
+            int[][] basis = new int[4][];
+            int[] elementOne = new int[16];
+            int[] elementTwo = new int[16];
+            int[] elementFour = new int[16];
+            int[] elementEight = new int[16];
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 16; i++)
             {
-                if (elements[i] == 1 || elements[i] == 3 || elements[i] == 5 || elements[i] == 7)
+                if (elements[i] == 1 || elements[i] == 3 || elements[i] == 5 || elements[i] == 7 || elements[i] == 9 || elements[i] == 11 || elements[i] == 13 || elements[i] == 15)
                 {
                     elementOne[i] = 1;
                 }
-                if (elements[i] == 2 || elements[i] == 3 || elements[i] == 6 || elements[i] == 7)
+                if (elements[i] == 2 || elements[i] == 3 || elements[i] == 6 || elements[i] == 7 || elements[i] == 10 || elements[i] == 11 || elements[i] == 14 || elements[i] == 15)
                 {
                     elementTwo[i] = 1;
                 }
-                if (elements[i] == 4 || elements[i] == 5 || elements[i] == 6 || elements[i] == 7)
+                if (elements[i] == 4 || elements[i] == 5 || elements[i] == 6 || elements[i] == 7 || elements[i] == 12 || elements[i] == 13 || elements[i] == 14 || elements[i] == 15)
                 {
                     elementFour[i] = 1;
+                }
+                if (elements[i] == 8 || elements[i] == 9 || elements[i] == 10 || elements[i] == 11 || elements[i] == 12 || elements[i] == 13 || elements[i] == 14 || elements[i] == 15)
+                {
+                    elementEight[i] = 1;
                 }
             }
 
             basis[0] = elementOne;
             basis[1] = elementTwo;
             basis[2] = elementFour;
+            basis[3] = elementEight;
 
             return basis;
         }
 
         public int[][] getBasesBinaryMO(int[][] multioperations)
         {
-            int[][] basis = new int[multioperations.Length * 3][];
+            int[][] basis = new int[multioperations.Length * 4][];
             int[][] basisMO;
             int index = 0;
 
@@ -49,7 +55,8 @@ namespace OneWayComposition.Rang3.Dimension2
                 basis[index] = basisMO[0];
                 basis[index + 1] = basisMO[1];
                 basis[index + 2] = basisMO[2];
-                index += 3;
+                basis[index + 3] = basisMO[3];
+                index += 4;
             }
 
             return basis;

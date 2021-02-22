@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace OneWayComposition.Rang3.Dimension2
+namespace OneWayComposition.Rang4.Dimension2
 {
     class AlgebrasWithOneWayComposition
     {
@@ -18,11 +18,11 @@ namespace OneWayComposition.Rang3.Dimension2
         MetaOperations meta = new MetaOperations();
 
         int[] multioperation;
-        bool details = false;
+        bool details = true;
 
         public void Start()
         {
-            int maxSizeAlgebra = 1000000;
+            int maxSizeAlgebra = 1000;
             ConsiderationOneBasis(maxSizeAlgebra);
             //ConsiderationBasis(maxSizeAlgebra);
             //ConsiderationPartAlgebras(maxSizeAlgebra);
@@ -37,7 +37,7 @@ namespace OneWayComposition.Rang3.Dimension2
 
             for (int b = 0; b < allUnaryBases.Length; b++)
             {
-                if (!baseAlgebra.ContainsKey(meta.getKeyMO(allUnaryBases[b][0], allUnaryBases[b][1], allUnaryBases[b][2])))
+                if (!baseAlgebra.ContainsKey(meta.getKeyMO(allUnaryBases[b][0], allUnaryBases[b][1], allUnaryBases[b][2], allUnaryBases[b][3])))
                 {
                     sizeCurrentAlgebra = getAlgebra(allUnaryBases[b], maxSizeAlgebra);
 
@@ -45,8 +45,8 @@ namespace OneWayComposition.Rang3.Dimension2
                     {
                         for (int i = 0; i < allUnaryBases[b].Length; i += 3)
                         {
-                            multioperation = parseVectorsMOtoArrayInt(new MultiOperation(allUnaryBases[b][i], allUnaryBases[b][i + 1],
-                                allUnaryBases[b][i + 2], meta.getKeyMO(allUnaryBases[b][i], allUnaryBases[b][i + 1], allUnaryBases[b][i + 2])));
+                            multioperation = parseVectorsMOtoArrayInt(new MultiOperation(allUnaryBases[b][i], allUnaryBases[b][i + 1], allUnaryBases[b][i + 2], allUnaryBases[b][i + 3],
+                                meta.getKeyMO(allUnaryBases[b][i], allUnaryBases[b][i + 1], allUnaryBases[b][i + 2], allUnaryBases[b][i + 3])));
                             foreach (int w in multioperation) sw.Write(w);
                             sw.Write(' ');
                         }
@@ -64,17 +64,15 @@ namespace OneWayComposition.Rang3.Dimension2
             int[][] basis = new Bases().getBasesBinaryMO(
                 new int[][]
                 {
-                    new int[] { 1, 0, 5, 0, 2, 6, 5, 6, 4 },
-                    new int[] { 1, 3, 5, 3, 2, 0, 5, 0, 4 },
-                    new int[] { 1, 3, 0, 3, 2, 6, 0, 6, 4 },
+                    new int[] { 1, 3, 5, 9, 3, 2, 6, 10, 5, 6, 4, 12, 9, 10, 12, 8 },
                 }
                 );
             int sizeCurrentAlgebra = getAlgebra(basis, maxSizeAlgebra);
 
-            for (int i = 0; i < basis.Length; i += 3)
+            for (int i = 0; i < basis.Length; i += 4)
             {
                 multioperation = parseVectorsMOtoArrayInt(new MultiOperation(
-                    basis[i], basis[i + 1], basis[i + 2], 0));
+                    basis[i], basis[i + 1], basis[i + 2], basis[i + 3], 0));
                 foreach (int w in multioperation) Console.Write(w);
                 Console.Write(' ');
             }
@@ -85,8 +83,8 @@ namespace OneWayComposition.Rang3.Dimension2
 
         private void ConsiderationPartAlgebras(int maxSizeAlgebra)
         {
-            StreamReader sr = new StreamReader(@"C:\Users\NiceLiker\source\repos\OneWayComposition\OneWayComposition\Rang3\Dimension2\algebras_7.txt");
-            StreamWriter sw = new StreamWriter(@"C:\Users\NiceLiker\source\repos\OneWayComposition\OneWayComposition\Rang3\Dimension2\algebras_7_with_e.txt");
+            StreamReader sr = new StreamReader(@"C:\Users\NiceLiker\source\repos\OneWayComposition\OneWayComposition\Rang4\Dimension2\algebras_7.txt");
+            StreamWriter sw = new StreamWriter(@"C:\Users\NiceLiker\source\repos\OneWayComposition\OneWayComposition\Rang4\Dimension2\algebras_7_with_e.txt");
 
             multioperation = new int[9];
             int sizeOneWayAlgebra = 0, sizeCurrentAlgebra = 0;
@@ -95,9 +93,9 @@ namespace OneWayComposition.Rang3.Dimension2
 
             while ((line = sr.ReadLine()) != null)
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 17; i++)
                 {
-                    if (i < 9)
+                    if (i < 16)
                     {
                         multioperation[i] = (int)(line[i] - '0');
                     }
@@ -113,7 +111,7 @@ namespace OneWayComposition.Rang3.Dimension2
                 if (sizeCurrentAlgebra != -1)
                 {
                     multioperation = parseVectorsMOtoArrayInt(new MultiOperation(
-                    basis[0], basis[1], basis[2], 0));
+                    basis[0], basis[1], basis[2], basis[3], 0));
                     foreach (int w in multioperation)
                     {
                         Console.Write(w);
@@ -138,48 +136,60 @@ namespace OneWayComposition.Rang3.Dimension2
         {
             int[][] codeForInt = new int[][]
             {
-                new int[] { 0, 0, 0 },
-                new int[] { 1, 0, 0 },
-                new int[] { 0, 1, 0 },
-                new int[] { 1, 1, 0 },
-                new int[] { 0, 0, 1 },
-                new int[] { 1, 0, 1 },
-                new int[] { 0, 1, 1 },
-                new int[] { 1, 1, 1 }
+                new int[] { 0, 0, 0, 0 },
+                new int[] { 1, 0, 0, 0 },
+                new int[] { 0, 1, 0, 0 },
+                new int[] { 1, 1, 0, 0 },
+                new int[] { 0, 0, 1, 0 },
+                new int[] { 1, 0, 1, 0 },
+                new int[] { 0, 1, 1, 0 },
+                new int[] { 1, 1, 1, 0 },
+                new int[] { 0, 0, 0, 1 },
+                new int[] { 1, 0, 0, 1 },
+                new int[] { 0, 1, 0, 1 },
+                new int[] { 1, 1, 0, 1 },
+                new int[] { 0, 0, 1, 1 },
+                new int[] { 1, 0, 1, 1 },
+                new int[] { 0, 1, 1, 1 },
+                new int[] { 1, 1, 1, 1 },
             };
 
             MultiOperation newMO;
-            int[] newElementOne, newElementTwo, newElementFour;
+            int[] newElementOne, newElementTwo, newElementFour, newElementEight;
 
-            newElementOne = new int[9];
-            newElementTwo = new int[9];
-            newElementFour = new int[9];
+            newElementOne = new int[16];
+            newElementTwo = new int[16];
+            newElementFour = new int[16];
+            newElementEight = new int[16];
 
-            for (int k = 0; k < 9; k++)
+            for (int k = 0; k < 16; k++)
             {
                 newElementOne[k] = codeForInt[MO[k]][0];
                 newElementTwo[k] = codeForInt[MO[k]][1];
                 newElementFour[k] = codeForInt[MO[k]][2];
+                newElementEight[k] = codeForInt[MO[k]][3];
             }
 
-            newMO = new MultiOperation(newElementOne, newElementTwo, newElementFour, meta.getKeyMO(
-                newElementOne, newElementTwo, newElementFour));
+            newMO = new MultiOperation(newElementOne, newElementTwo, newElementFour, newElementEight,
+                meta.getKeyMO(newElementOne, newElementTwo, newElementFour, newElementEight));
             return newMO;
         }
 
         private int[] parseVectorsMOtoArrayInt(MultiOperation MO)
         {
-            int[] multioperation = new int[9], elementOne, elementTwo, elementFour;
+            int[] multioperation = new int[16], elementOne, elementTwo, elementFour, elementEight;
             int element = 0;
 
             elementOne = MO.elementOne;
             elementTwo = MO.elementTwo;
             elementFour = MO.elementFour;
-            for (int i = 0; i < 9; i++)
+            elementEight = MO.elementEight;
+            for (int i = 0; i < 16; i++)
             {
                 if (elementOne[i] == 1) { element += 1; }
                 if (elementTwo[i] == 1) { element += 2; }
                 if (elementFour[i] == 1) { element += 4; }
+                if (elementEight[i] == 1) { element += 8; }
 
                 multioperation[i] = element;
                 element = 0;
@@ -193,7 +203,7 @@ namespace OneWayComposition.Rang3.Dimension2
             currentAlgebra = new Dictionary<long, MultiOperation>(maxSizeAlgebra);
             newMultiOperations = new Dictionary<long, MultiOperation>(maxSizeAlgebra);
             keysCurrentAlgebra = new long[maxSizeAlgebra];
-            mainKeysCurrentAlgebra = new long[basis.Length + (basis.Length / 3) + (baseAlgebra.Count * 2) + baseAlgebra.Count];
+            mainKeysCurrentAlgebra = new long[basis.Length + (basis.Length / 4) + (baseAlgebra.Count * 2) + baseAlgebra.Count];
 
             MultiOperation newMO;
             int oldSizeAlgebra = 0, sizeCurrentAlgebra = 0, sizeNewMultioperations = 0, sizeMKCA = 0;
@@ -343,7 +353,7 @@ namespace OneWayComposition.Rang3.Dimension2
                     foreach (KeyValuePair<long, MultiOperation> temp_MO in newMultiOperations)
                     {
                         newMO = new MultiOperation(temp_MO.Value.elementOne, temp_MO.Value.elementTwo,
-                            temp_MO.Value.elementFour, temp_MO.Key);
+                            temp_MO.Value.elementFour, temp_MO.Value.elementEight, temp_MO.Key);
                         currentAlgebra.Add(newMO.keyMO, newMO);
                         keysCurrentAlgebra[sizeCurrentAlgebra] = temp_MO.Key;
                         sizeCurrentAlgebra++;
@@ -352,8 +362,6 @@ namespace OneWayComposition.Rang3.Dimension2
                     sizeNewMultioperations = 0;
                     newMultiOperations.Clear();
                     firstStep = false;
-
-                    Console.WriteLine(sizeCurrentAlgebra);
                 }
                 else
                 {
@@ -667,11 +675,11 @@ namespace OneWayComposition.Rang3.Dimension2
                 }
             }
 
-            for (int i = 0; i < basis.Length; i += 3)
+            for (int i = 0; i < basis.Length; i += 4)
             {
                 sizeAlgebra = sizeCurrentAlgebra;
-                MO = new MultiOperation(basis[i], basis[i + 1], basis[i + 2],
-                    meta.getKeyMO(basis[i], basis[i + 1], basis[i + 2]));
+                MO = new MultiOperation(basis[i], basis[i + 1], basis[i + 2], basis[i + 3],
+                    meta.getKeyMO(basis[i], basis[i + 1], basis[i + 2], basis[i + 3]));
                 sizeCurrentAlgebra = checkAndAddElement(MO, sizeMKCA, sizeCurrentAlgebra);
                 if (sizeAlgebra != sizeCurrentAlgebra) sizeMKCA++;
 

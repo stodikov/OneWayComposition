@@ -46,6 +46,7 @@
     <Compile Include="Rang2\Dimension1\BaseAlgebra.cs" />
     <Compile Include="Rang2\Dimension1\Bases.cs" />
     <Compile Include="Rang2\Dimension1\MetaOperations.cs" />
+    <Compile Include="Rang3\Dimension2\AlgebrasWithOneWayComposition.cs" />
     <Compile Include="Rang3\Dimension1\AlgebrasWithFullComposition.cs" />
     <Compile Include="Rang3\Dimension1\AlgebrasWithOneWayComposition.cs" />
     <Compile Include="Rang3\Dimension1\BaseAlgebra.cs" />
@@ -55,7 +56,6 @@
     <Compile Include="Rang2\Dimension2\BaseAlgebra.cs" />
     <Compile Include="Rang2\Dimension2\Bases.cs" />
     <Compile Include="Rang3\Dimension2\AlgebrasWithFullComposition.cs" />
-    <Compile Include="Rang3\Dimension2\AlgebrasWithOneWayComposition.cs" />
     <Compile Include="Rang2\Dimension2\AlgebrasWithOneWayComposition.cs" />
     <Compile Include="Rang2\Dimension2\MetaOperations.cs" />
     <Compile Include="Rang3\Dimension2\BaseAlgebra.cs" />
@@ -70,6 +70,12 @@
     <Compile Include="Rang2\Dimension3\MetaOperations.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rang4\Dimension2\AlgebrasWithFullComposition.cs" />
+    <Compile Include="Rang4\Dimension2\AlgebrasWithOneWayComposition.cs" />
+    <Compile Include="Rang4\Dimension2\BaseAlgebra.cs" />
+    <Compile Include="Rang4\Dimension2\Bases.cs" />
+    <Compile Include="Rang4\Dimension2\MetaOperations.cs" />
+    <Compile Include="Rang4\MultiOperation.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -17,7 +17,7 @@ namespace OneWayComposition.Rang2.Dimension2
         MetaOperations meta = new MetaOperations();
 
         int[] multioperation;
-        bool details = false;
+        bool details = true;
 
         public void Start()
         {
@@ -31,9 +31,7 @@ namespace OneWayComposition.Rang2.Dimension2
             int[][] basis = new Bases().getBasesBinaryMO(
                 new int[][]
                 {
-                    new int[] { 2, 3, 3, 3 },
-                    new int[] { 1, 1, 1, 1 },
-                    new int[] { 3, 2, 3, 2 },
+                    new int[] { 1, 0, 3, 2 },
                 }
                 );
             int sizeCurrentAlgebra = getAlgebra(basis, maxSizeAlgebra);
