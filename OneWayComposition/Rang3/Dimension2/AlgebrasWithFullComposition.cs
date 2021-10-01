@@ -22,7 +22,7 @@ namespace OneWayComposition.Rang3.Dimension2
 
         public void Start()
         {
-            int maxSizeAlgebra = 1000000;
+            int maxSizeAlgebra = 10000000;
             ConsiderationOneBasis(maxSizeAlgebra);
             //ConsiderationPartAlgebras(maxSizeAlgebra);
         }
@@ -32,9 +32,8 @@ namespace OneWayComposition.Rang3.Dimension2
             int[][] basis = new Bases().getBasesBinaryMO(
                 new int[][]
                 {
-                    new int[] { 1, 0, 5, 0, 2, 6, 5, 6, 4 },
-                    new int[] { 1, 3, 5, 3, 2, 0, 5, 0, 4 },
-                    new int[] { 1, 3, 0, 3, 2, 6, 0, 6, 4 },
+                    //new int[] { 1, 0, 5, 0, 2, 6, 5, 6, 4 },
+                    new int[] { 0, 0, 0, 7, 7, 5, 3, 3, 7 }
                 }
                 );
             int sizeCurrentAlgebra = getAlgebra(basis, maxSizeAlgebra);
@@ -186,6 +185,7 @@ namespace OneWayComposition.Rang3.Dimension2
             MultiOperation newMO;
             int sizeCurrentAlgebra = 0;
             int oldSizeAlgebra = 0, sizeNewMultioperations = 0;
+            int circle = 0;
             bool flag = true;
 
             sizeCurrentAlgebra = prepareForConstruct(basis, sizeCurrentAlgebra);
@@ -265,6 +265,9 @@ namespace OneWayComposition.Rang3.Dimension2
 
                     sizeNewMultioperations = 0;
                     newMultiOperations.Clear();
+
+                    Console.WriteLine(circle);
+                    circle++;
                 }
                 else
                 {

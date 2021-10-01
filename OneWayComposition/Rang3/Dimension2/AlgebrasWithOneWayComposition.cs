@@ -18,11 +18,11 @@ namespace OneWayComposition.Rang3.Dimension2
         MetaOperations meta = new MetaOperations();
 
         int[] multioperation;
-        bool details = false;
+        bool details = true;
 
         public void Start()
         {
-            int maxSizeAlgebra = 1000000;
+            int maxSizeAlgebra = 10000000;
             ConsiderationOneBasis(maxSizeAlgebra);
             //ConsiderationBasis(maxSizeAlgebra);
             //ConsiderationPartAlgebras(maxSizeAlgebra);
@@ -64,9 +64,7 @@ namespace OneWayComposition.Rang3.Dimension2
             int[][] basis = new Bases().getBasesBinaryMO(
                 new int[][]
                 {
-                    new int[] { 1, 0, 5, 0, 2, 6, 5, 6, 4 },
-                    new int[] { 1, 3, 5, 3, 2, 0, 5, 0, 4 },
-                    new int[] { 1, 3, 0, 3, 2, 6, 0, 6, 4 },
+                    new int[] { 5, 0, 7, 6, 6, 6, 7, 7, 7 }
                 }
                 );
             int sizeCurrentAlgebra = getAlgebra(basis, maxSizeAlgebra);
@@ -197,6 +195,7 @@ namespace OneWayComposition.Rang3.Dimension2
 
             MultiOperation newMO;
             int oldSizeAlgebra = 0, sizeCurrentAlgebra = 0, sizeNewMultioperations = 0, sizeMKCA = 0;
+            int circle = 0;
             bool flag = true, firstStep = true;
 
             KeyValuePair<int, int> sizes = prepareForConstruct(basis, sizeCurrentAlgebra, sizeMKCA);
@@ -353,7 +352,8 @@ namespace OneWayComposition.Rang3.Dimension2
                     newMultiOperations.Clear();
                     firstStep = false;
 
-                    Console.WriteLine(sizeCurrentAlgebra);
+                    //Console.WriteLine(circle);
+                    circle++;
                 }
                 else
                 {
@@ -521,35 +521,51 @@ namespace OneWayComposition.Rang3.Dimension2
                             flag = false;
                             break;
                         }
-                        newMO = meta.composition(currentAlgebra[mainKeysCurrentAlgebra[i]],
-                            currentAlgebra[keysCurrentAlgebra[j]], currentAlgebra[keysCurrentAlgebra[k]]);
-                        if (!currentAlgebra.ContainsKey(newMO.keyMO) && !newMultiOperations.ContainsKey(newMO.keyMO))
+                        if (checkOperation(currentAlgebra[keysCurrentAlgebra[j]], currentAlgebra[keysCurrentAlgebra[k]]))
                         {
-                            if (details)
+                            newMO = meta.composition(currentAlgebra[mainKeysCurrentAlgebra[i]],
+                            currentAlgebra[keysCurrentAlgebra[j]], currentAlgebra[keysCurrentAlgebra[k]]);
+                            if (!currentAlgebra.ContainsKey(newMO.keyMO) && !newMultiOperations.ContainsKey(newMO.keyMO))
                             {
-                                Console.Write("cp: (");
-                                multioperation = parseVectorsMOtoArrayInt(currentAlgebra[mainKeysCurrentAlgebra[i]]);
-                                foreach (int w in multioperation) Console.Write(w);
-                                Console.Write(") * (");
-                                multioperation = parseVectorsMOtoArrayInt(currentAlgebra[keysCurrentAlgebra[j]]);
-                                foreach (int w in multioperation) Console.Write(w);
-                                Console.Write(")(");
-                                multioperation = parseVectorsMOtoArrayInt(currentAlgebra[keysCurrentAlgebra[k]]);
-                                foreach (int w in multioperation) Console.Write(w);
-                                Console.Write(") -> ");
-                                multioperation = parseVectorsMOtoArrayInt(newMO);
-                                foreach (int w in multioperation) Console.Write(w);
-                                Console.WriteLine();
-                            }
+                                if (details)
+                                {
+                                    Console.Write("cp: (");
+                                    multioperation = parseVectorsMOtoArrayInt(currentAlgebra[mainKeysCurrentAlgebra[i]]);
+                                    foreach (int w in multioperation) Console.Write(w);
+                                    Console.Write(") * (");
+                                    multioperation = parseVectorsMOtoArrayInt(currentAlgebra[keysCurrentAlgebra[j]]);
+                                    foreach (int w in multioperation) Console.Write(w);
+                                    Console.Write(")(");
+                                    multioperation = parseVectorsMOtoArrayInt(currentAlgebra[keysCurrentAlgebra[k]]);
+                                    foreach (int w in multioperation) Console.Write(w);
+                                    Console.Write(") -> ");
+                                    multioperation = parseVectorsMOtoArrayInt(newMO);
+                                    foreach (int w in multioperation) Console.Write(w);
+                                    Console.WriteLine();
+                                }
 
-                            newMultiOperations.Add(newMO.keyMO, newMO);
-                            sizeNewMultioperations++;
+                                newMultiOperations.Add(newMO.keyMO, newMO);
+                                sizeNewMultioperations++;
+                            }
                         }
                     }
                 }
             }
 
             if (flag) { return sizeNewMultioperations; } else { return -1; }
+        }
+
+        private bool checkOperation(MultiOperation MO_0, MultiOperation MO_1)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                if ((MO_0.elementOne[i] == 1 && MO_0.elementTwo[i] == 1) || (MO_0.elementOne[i] == 0 && MO_0.elementTwo[i] == 0) ||
+                    (MO_1.elementOne[i] == 1 && MO_1.elementTwo[i] == 1) || (MO_1.elementOne[i] == 0 && MO_1.elementTwo[i] == 0))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         //without e

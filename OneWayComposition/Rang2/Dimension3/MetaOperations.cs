@@ -33,7 +33,7 @@ namespace OneWayComposition.Rang2.Dimension3
                 newElementTwo[i + 4] = elementTwo[i + 4];
             }
 
-            return newMO = new MultiOperation(newElementOne, newElementTwo, getKeyMO(newElementOne, newElementTwo));
+            return newMO = new MultiOperation(newElementOne, newElementTwo, null, null, getKeyMO(newElementOne, newElementTwo));
         }
 
         public MultiOperation solvabilitySP(MultiOperation MO)
@@ -82,7 +82,7 @@ namespace OneWayComposition.Rang2.Dimension3
                 }
             }
 
-            return newMO = new MultiOperation(newElementOne, newElementTwo, getKeyMO(newElementOne, newElementTwo));
+            return newMO = new MultiOperation(newElementOne, newElementTwo, null, null, getKeyMO(newElementOne, newElementTwo));
         }
 
         public MultiOperation solvabilityTP(MultiOperation MO)
@@ -110,7 +110,7 @@ namespace OneWayComposition.Rang2.Dimension3
                 }
             }
 
-            return newMO = new MultiOperation(newElementOne, newElementTwo, getKeyMO(newElementOne, newElementTwo));
+            return newMO = new MultiOperation(newElementOne, newElementTwo, null, null, getKeyMO(newElementOne, newElementTwo));
         }
 
         public MultiOperation intersection(MultiOperation MO_0, MultiOperation MO_1)
@@ -131,7 +131,7 @@ namespace OneWayComposition.Rang2.Dimension3
                 if (elementTwo_0[i] == elementTwo_1[i] && elementTwo_0[i] == 1) { newElementTwo[i] = 1; }
             }
 
-            return newMO = new MultiOperation(newElementOne, newElementTwo, getKeyMO(newElementOne, newElementTwo));
+            return newMO = new MultiOperation(newElementOne, newElementTwo, null, null,  getKeyMO(newElementOne, newElementTwo));
         }
 
         public MultiOperation composition(MultiOperation MO_0, MultiOperation MO_1, MultiOperation MO_2, MultiOperation MO_3)
@@ -208,7 +208,7 @@ namespace OneWayComposition.Rang2.Dimension3
                 newElementTwo[j] = matrixForComposition[temp_temp_mo_m3_m2[1], m_1[j]];
             }
 
-            return newMO = new MultiOperation(newElementOne, newElementTwo, getKeyMO(newElementOne, newElementTwo));
+            return newMO = new MultiOperation(newElementOne, newElementTwo, null, null, getKeyMO(newElementOne, newElementTwo));
         }
 
         public long getKeyMO(int[] elementOne, int[] elementTwo)

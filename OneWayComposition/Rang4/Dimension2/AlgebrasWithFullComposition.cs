@@ -32,7 +32,7 @@ namespace OneWayComposition.Rang4.Dimension2
             int[][] basis = new Bases().getBasesBinaryMO(
                 new int[][]
                 {
-                    new int[] { 1, 3, 5, 9, 3, 2, 6, 10, 5, 6, 4, 12, 9, 10, 12, 8 },
+                    new int[] { 1, 3, 5, 9, 3, 2, 0, 0, 5, 0, 4, 0, 9, 0, 0, 8 },
                 }
                 );
             int sizeCurrentAlgebra = getAlgebra(basis, maxSizeAlgebra);

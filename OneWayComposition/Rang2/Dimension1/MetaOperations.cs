@@ -7,7 +7,7 @@ namespace OneWayComposition.Rang2.Dimension1
 {
     class MetaOperations
     {
-        public MultiOperation solvability(MultiOperation MO)
+        public MultiOperation solvabilityFP(MultiOperation MO)
         {
             MultiOperation newMO;
             int[] newElementOne = new int[2];
@@ -22,7 +22,7 @@ namespace OneWayComposition.Rang2.Dimension1
             newElementOne[1] = elementTwo[0];
             newElementTwo[1] = elementTwo[1];
 
-            return newMO = new MultiOperation(newElementOne, newElementTwo, getKeyMO(newElementOne, newElementTwo));
+            return newMO = new MultiOperation(newElementOne, newElementTwo, null, null, getKeyMO(newElementOne, newElementTwo));
         }
 
         public MultiOperation intersection(MultiOperation MO_0, MultiOperation MO_1)
@@ -43,7 +43,7 @@ namespace OneWayComposition.Rang2.Dimension1
                 if (elementTwo_0[i] == elementTwo_1[i] && elementTwo_0[i] == 1) { newElementTwo[i] = 1; }
             }
 
-            return newMO = new MultiOperation(newElementOne, newElementTwo, getKeyMO(newElementOne, newElementTwo));
+            return newMO = new MultiOperation(newElementOne, newElementTwo, null, null, getKeyMO(newElementOne, newElementTwo));
         }
 
         public MultiOperation composition(MultiOperation MO_0, MultiOperation MO_1)
@@ -105,7 +105,7 @@ namespace OneWayComposition.Rang2.Dimension1
             }
 
 
-            return newMO = new MultiOperation(newElementOne, newElementTwo, getKeyMO(newElementOne, newElementTwo));
+            return newMO = new MultiOperation(newElementOne, newElementTwo, null, null, getKeyMO(newElementOne, newElementTwo));
         }
 
         public long getKeyMO(int[] elementOne, int[] elementTwo)
